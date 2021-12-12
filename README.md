@@ -1,3 +1,7 @@
+# Primeiro projeto react native 
+
+bootcamp de dezembro realizado em parceria com @nthales
+
 # Trackmob - Teste para Frontend (allocated)
 
 ## Requirements
