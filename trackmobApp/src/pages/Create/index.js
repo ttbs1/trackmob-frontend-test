@@ -42,7 +42,7 @@ class Create extends React.Component {
                     </View>
 
                     <TextInput style={styles.input} onChangeText={text => { this.setState({ price: text }) }} value={this.state.price} placeholder="100.00" keyboardType="numeric" />
-                    <TextInput style={styles.input} onChangeText={text => { this.setState({ tags: text.split(",") }) }} value={this.state.tags.toString()} placeholder="tag1 tag2 tag3" />
+                    <TextInput style={styles.input} onChangeText={text => { this.setState({ tags: text }) }} value={this.state.tags} placeholder="tag1 tag2 tag3" />
 
                     <TouchableOpacity
                         style={styles.btn}
@@ -51,8 +51,9 @@ class Create extends React.Component {
                                 name: this.state.name,
                                 price: this.state.price,
                                 category: this.state.category,
-                                tags: this.state.tags
-                            })
+                                tags: this.state.tags.split(" ")
+                            }); 
+                            navigation.goBack(null);
                         }}>
                         <Text>+ Salvar</Text>
                     </TouchableOpacity>

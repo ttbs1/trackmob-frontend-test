@@ -8,6 +8,7 @@ class Home extends React.Component {
         super(props);
         this.state = {
             products: [{
+                id: "",
                 name: "product 1",
                 price: "U$ 50.01",
                 category: "category1",
@@ -15,6 +16,7 @@ class Home extends React.Component {
             }]
         }
 
+        this.handleDelete = this.handleDelete.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -22,6 +24,13 @@ class Home extends React.Component {
         let products = this.state.products ? [...this.state.products, product] : new Array(product);
         this.setState({ products });
     };
+
+    handleDelete = key => {
+        const { products } = this.state;
+        this.setState({
+            products: products.filter((item, i) => i !== key)
+        })
+    }
 
     render() {
         const { navigation } = this.props;
@@ -57,10 +66,10 @@ class Home extends React.Component {
                                                 <Text>{response.name}</Text>
                                                 <Text>{response.price}</Text>
                                                 <Text>{response.category}</Text>
-                                                <Text>{ response.tags.map(x => {return ("#"+x)}) }</Text>
+                                                <Text>{response.tags.map(x => { return ("#" + x + " ") })}</Text>
                                             </View>
-                                            <View style={{flexDirection: 'row'}}>
-                                                <Icon.Button name="trash-alt" size={15} color="#454545" backgroundColor="none" />
+                                            <View style={{ flexDirection: 'row' }}>
+                                                <Icon.Button onPress={() => this.handleDelete(i)} name="trash-alt" size={15} color="#454545" backgroundColor="none" />
                                                 <Icon.Button name="edit" size={15} color="#454545" backgroundColor="none" />
                                             </View>
                                         </View>
