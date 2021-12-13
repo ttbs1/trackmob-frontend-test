@@ -2,16 +2,18 @@ import React from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { Picker } from '@react-native-picker/picker';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 
 class Create extends React.Component {
 
     constructor(props) {
         super(props);
+        const { route } = this.props;
         this.state = {
-            name: "",
-            price: "",
-            category: "category1",
-            tags: []
+            name: route.params.product.name,
+            price: route.params.product.price,
+            category: route.params.product.category,
+            tags: route.params.product.tags.join(" ")
         }
     }
 
@@ -29,7 +31,7 @@ class Create extends React.Component {
                 <View style={styles.container}>
                     <TextInput style={styles.input} onChangeText={text => { this.setState({ name: text }) }} value={this.state.name} placeholder="Product name" />
 
-                    <View style={styles.input}>
+                    <View style={{ borderWidth: 1, marginBottom: 15 }}>
                         <Picker
                             selectedValue={this.state.category}
                             onValueChange={(itemValue) =>
@@ -48,6 +50,7 @@ class Create extends React.Component {
                         style={styles.btn}
                         onPress={() => {
                             route.params.callback({
+                                index: route.params.index,
                                 name: this.state.name,
                                 price: this.state.price,
                                 category: this.state.category,
@@ -55,7 +58,7 @@ class Create extends React.Component {
                             }); 
                             navigation.goBack(null);
                         }}>
-                        <Text>+ Salvar</Text>
+                        <Text><Icon name="plus" color="#454545" /> Salvar</Text>
                     </TouchableOpacity>
                 </View>
             </>
@@ -78,6 +81,7 @@ const styles = StyleSheet.create({
     },
     input: {
         borderWidth: 1,
+        paddingLeft: 18,
         marginBottom: 15
     },
     btn: {

@@ -17,11 +17,18 @@ class Home extends React.Component {
         }
 
         this.handleDelete = this.handleDelete.bind(this);
+        this.handleUpdate = this.handleUpdate.bind(this);
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick = product => {
         let products = this.state.products ? [...this.state.products, product] : new Array(product);
+        this.setState({ products });
+    };
+
+    handleUpdate = (product) => {
+        let products = [...this.state.products];
+        products[product.index] = product;
         this.setState({ products });
     };
 
@@ -45,9 +52,14 @@ class Home extends React.Component {
                     <TouchableOpacity
                         style={styles.btn}
                         onPress={() =>
-                            navigation.navigate('Create', { callback: this.handleClick })
+                            navigation.navigate('Create', { callback: this.handleClick, product: {
+                                name: "",
+                                price: "",
+                                category: "category1",
+                                tags: []
+                            } })
                         }>
-                        <Text>+ Cadastrar</Text>
+                        <Text><Icon name="plus" color="#454545" /> Cadastrar</Text>
                     </TouchableOpacity>
                     <View>
 
@@ -62,15 +74,15 @@ class Home extends React.Component {
                                                     source={require("./../../util/notitle.png")}
                                                 />
                                             </View>
-                                            <View>
-                                                <Text>{response.name}</Text>
+                                            <View style={{ paddingTop: 3, paddingLeft: 3 }}>
+                                                <Text style={{ fontWeight: '900', fontSize: 16 }} >{response.name}</Text>
                                                 <Text>{response.price}</Text>
                                                 <Text>{response.category}</Text>
                                                 <Text>{response.tags.map(x => { return ("#" + x + " ") })}</Text>
                                             </View>
-                                            <View style={{ flexDirection: 'row' }}>
+                                            <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
                                                 <Icon.Button onPress={() => this.handleDelete(i)} name="trash-alt" size={15} color="#454545" backgroundColor="none" />
-                                                <Icon.Button name="edit" size={15} color="#454545" backgroundColor="none" />
+                                                <Icon.Button onPress={() => navigation.navigate('Create', { callback: this.handleUpdate, product: response, index: i })} name="edit" size={15} color="#454545" backgroundColor="none" />
                                             </View>
                                         </View>
                                     )
