@@ -81,8 +81,8 @@ class Home extends React.Component {
                                                 <Text>{response.tags.map(x => { return ("#" + x + " ") })}</Text>
                                             </View>
                                             <View style={{ flexDirection: 'row', alignItems: 'flex-end', justifyContent: 'flex-end', flex: 1 }}>
-                                                <Icon.Button onPress={() => this.handleDelete(i)} name="trash-alt" size={15} color="#454545" backgroundColor="none" />
-                                                <Icon.Button onPress={() => navigation.navigate('Create', { callback: this.handleUpdate, product: response, index: i })} name="edit" size={15} color="#454545" backgroundColor="none" />
+                                                <Icon.Button style={{ paddingRight:0 }} onPress={() => this.handleDelete(i)} name="trash-alt" size={15} color="#454545" backgroundColor="#f2f2f2" />
+                                                <Icon.Button style={{ paddingRight:0 }} onPress={() => navigation.navigate('Create', { callback: this.handleUpdate, product: response, index: i })} name="edit" size={15} color="#454545" backgroundColor="#f2f2f2" />
                                             </View>
                                         </View>
                                     )
